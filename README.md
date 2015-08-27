@@ -1,3 +1,3 @@
 # Rubygeom
 
-This is a computational geometry library that includes to represent Points, Lines, Shapes (polygons), and Intersections. It implements a point.in_shape?(shape) method that uses the ray-casting algorithm to test if a point is in a polygon. The logic is located in lib/rubygeom.rb.
+This is a computational geometry library that includes classes to represent Points, Lines, Shapes (polygons), and Intersections. It implements a point.in_shape?(shape) method that uses the ray-casting algorithm to test if a point is in a polygon. The logic is located in lib/rubygeom.rb. Tests are in spec/rubygeom_spec.rb.
