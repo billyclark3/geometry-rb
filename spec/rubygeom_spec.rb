@@ -185,7 +185,41 @@ describe Rubygeom do
       i.tangent.should be true        
     end
   end
+  
+  describe Rubygeom::Region do
+    it "should initialize by storing a number of lambdas that represent bounds, or constraints in the Euclidean space" do
+      bound_1 = lambda {|x,y| y > -2}
+      bound_2 = lambda {|x,y| x > 0}
+      bound_3 = lambda {|x,y| y < 20 - x}
+      region = Rubygeom::Region.new([bound_1, bound_2, bound_3])
+      region.bounds.class.should be Array
+      region.bounds.length.should eq 3
+    end
+    it "should return a filter that evaluates as a Proc" do
+      bound_1 = lambda {|x,y| y > -2}
+      bound_2 = lambda {|x,y| x > 0}
+      bound_3 = lambda {|x,y| y < 20 - x}
+      region = Rubygeom::Region.new([bound_1, bound_2, bound_3])
+      region.getFilter.class.should be Proc
+    end
+    it "should be able to filter points to tell if they are in the region" do
+      bound_1 = lambda {|x,y| y > -2}
+      bound_2 = lambda {|x,y| x > 0}
+      bound_3 = lambda {|x,y| y < 20 - x}
+      region = Rubygeom::Region.new([bound_1, bound_2, bound_3])
+      region.getFilter.call(1,0).should be true
+    end    
+    it "should be able to utilize its collection of lambdas to test if a point is in the region represented" do
+      bound_1 = lambda {|x,y| y > -2}
+      bound_2 = lambda {|x,y| x > 0}
+      bound_3 = lambda {|x,y| y < 20 - x}
+      region = Rubygeom::Region.new([bound_1, bound_2, bound_3])
+      point_test = Rubygeom::Point.new(1,0)
+      region.contains_point?(point_test).should be true
+    end        
+  end
 end
+
 # Notes to self
 # use 2 points, not array as arg for initializing line
 # vert? use question mark for bool

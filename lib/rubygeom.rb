@@ -214,6 +214,18 @@ module Rubygeom
         @tangent = is_tangent
       end
     end
-  
+
+    class Region
+      attr_accessor :bounds
+      def initialize(lambdas)
+        @bounds = lambdas
+      end
+      def getFilter
+        @bounds.inject(lambda {|x,y| true }) {|result, lamb| lambda {|x,y| result.call(x,y) && lamb.call(x,y) } }
+      end
+      def contains_point?(point)
+        getFilter.call(point.x,point.y)
+      end
+    end  
 
 end
